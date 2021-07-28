@@ -8,6 +8,7 @@
         <property name="id" value="1"/>
         <property name="name" value="liuwy"/>
     </bean>
+    <!-- 延迟查找 -->
     <bean id="objectFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
         <property name="targetBeanName" value="user"/>
     </bean>
