@@ -16,4 +16,13 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <!-- 复用ioc-container-overview -->
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>ioc-container-overview</artifactId>
+            <version>${version}</version>
+        </dependency>
+    </dependencies>
+
 </project>
