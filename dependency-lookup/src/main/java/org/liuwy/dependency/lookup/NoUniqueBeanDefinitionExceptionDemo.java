@@ -1,4 +1,4 @@
-package org.liuwy.dependecy.lookup;
+package org.liuwy.dependency.lookup;
 
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

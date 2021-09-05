@@ -1,10 +1,9 @@
-package org.liuwy.dependecy.lookup;
+package org.liuwy.dependency.lookup;
 
 import org.liuwy.ioc.overview.domain.User;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 /**

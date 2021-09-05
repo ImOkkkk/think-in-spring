@@ -1,4 +1,4 @@
-package org.liuwy.dependecy.lookup;
+package org.liuwy.dependency.lookup;
 
 import javax.annotation.PostConstruct;
 
