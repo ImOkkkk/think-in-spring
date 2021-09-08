@@ -1,22 +1,20 @@
 package org.liuwy.dependency.injection;
 
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.liuwy.ioc.overview.domain.User;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 /**
- * 基于 API 实现依赖 Setter 方法注入示例
+ * 基于 Java 注解的依赖 Constructor 注入示例
  * @author ImOkkkk
- * @date 2021/9/5 21:53
+ * @date 2021/9/5 21:44
  * @since 1.0
  */
-public class ApiDependencySetterInjectionDemo {
+public class AnnotationDependencyConstructorInjectionDemo {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-        //注册UserHolder的BeanDefinition
-        BeanDefinition userHolderBeanDefinition = createUserHolderBeanDefinition();
-        applicationContext.registerBeanDefinition("userHolder",userHolderBeanDefinition);
+        applicationContext.register(AnnotationDependencyConstructorInjectionDemo.class);
 
         XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(applicationContext);
         String xmlResourcePath = "classpath:/META-INF/dependency-lookup-context.xml";
@@ -29,14 +27,8 @@ public class ApiDependencySetterInjectionDemo {
         applicationContext.close();
     }
 
-    /**
-     * 为{@link UserHolder}生成{@link BeanDefinition}
-     * 
-     * @return
-     */
-    private static BeanDefinition createUserHolderBeanDefinition() {
-        BeanDefinitionBuilder definitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(UserHolder.class);
-        definitionBuilder.addPropertyReference("user","Admin");
-        return definitionBuilder.getBeanDefinition();
+    @Bean
+    public UserHolder userHolder(User user) {
+        return new UserHolder(user);
     }
 }

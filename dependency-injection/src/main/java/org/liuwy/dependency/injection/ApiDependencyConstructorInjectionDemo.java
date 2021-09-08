@@ -6,12 +6,12 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * 基于 API 实现依赖 Setter 方法注入示例
+ * 基于 API 实现依赖 Constructor 注入示例
  * @author ImOkkkk
  * @date 2021/9/5 21:53
  * @since 1.0
  */
-public class ApiDependencySetterInjectionDemo {
+public class ApiDependencyConstructorInjectionDemo {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         //注册UserHolder的BeanDefinition
@@ -36,7 +36,7 @@ public class ApiDependencySetterInjectionDemo {
      */
     private static BeanDefinition createUserHolderBeanDefinition() {
         BeanDefinitionBuilder definitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(UserHolder.class);
-        definitionBuilder.addPropertyReference("user","Admin");
+        definitionBuilder.addConstructorArgReference("Admin");
         return definitionBuilder.getBeanDefinition();
     }
 }
