@@ -1,5 +1,11 @@
 package org.liuwy.ioc.overview.domain;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.liuwy.ioc.overview.enums.City;
+import org.springframework.core.io.Resource;
+
 /**
  * 用户类
  * 
@@ -10,6 +16,46 @@ package org.liuwy.ioc.overview.domain;
 public class User {
     private Long id;
     private String name;
+
+    private City city;
+
+    private City[] workCities;
+
+    private List<City> lifeCities;
+
+    private Resource configFileLocation;
+
+    public List<City> getLifeCities() {
+        return lifeCities;
+    }
+
+    public void setLifeCities(List<City> lifeCities) {
+        this.lifeCities = lifeCities;
+    }
+
+    public City[] getWorkCities() {
+        return workCities;
+    }
+
+    public void setWorkCities(City[] workCities) {
+        this.workCities = workCities;
+    }
+
+    public Resource getConfigFileLocation() {
+        return configFileLocation;
+    }
+
+    public void setConfigFileLocation(Resource configFileLocation) {
+        this.configFileLocation = configFileLocation;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 
     public static User createUser() {
         User user = new User();
@@ -39,6 +85,10 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", city=" + city +
+                ", workCities=" + Arrays.toString(workCities) +
+                ", lifeCities=" + lifeCities +
+                ", configFileLocation=" + configFileLocation +
                 '}';
     }
 }
