@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.inject.Inject;
+
 import org.liuwy.ioc.overview.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
@@ -36,6 +38,9 @@ public class AnnotationDependencyInjectionResolutionDemo {
     @Autowired
     private Optional<User> userOptional;//Admin
 
+    @Inject
+    private User injectUser;
+
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(AnnotationDependencyInjectionResolutionDemo.class);
@@ -49,6 +54,7 @@ public class AnnotationDependencyInjectionResolutionDemo {
         AnnotationDependencyInjectionResolutionDemo demo =
             applicationContext.getBean(AnnotationDependencyInjectionResolutionDemo.class);
         System.out.println("demo.user：" + demo.user);
+        System.out.println("demo.injectUser："+demo.injectUser);
         System.out.println("demo.users：" + demo.users);
         System.out.println("demo.userMap：" + demo.userMap);
         System.out.println("demo.userOptional："+demo.userOptional);
