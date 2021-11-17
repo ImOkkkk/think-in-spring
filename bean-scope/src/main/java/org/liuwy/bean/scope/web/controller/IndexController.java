@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
     @Autowired
-    private User user;
-
+    private User user;  //CGLIB代理后对象(不变)
     @GetMapping("index.html")
     public String index(Model model) {
-        model.addAttribute("user", user);
+        // JSP EL变量搜索路径 page -> request -> session -> application(ServletContext)
+        // userObject -> 渲染上下文
+        // user 对象存在ServletContext，上下文名称：user
+        model.addAttribute("userObject", user);
         return "index";
     }
 }

@@ -7,6 +7,7 @@
     </head>
     <body>
         \${user.name} : ${user.name}
+        \${userObject.name} : ${userObject.name}
         \${applicationScope['scopedTarget.user'].name} : ${applicationScope['scopedTarget.user'].name}
     </body>
 </html>
