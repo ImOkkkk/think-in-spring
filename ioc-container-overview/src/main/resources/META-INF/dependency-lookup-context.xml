@@ -5,10 +5,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/beans/spring-context.xsd">
+        https://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
     <context:component-scan base-package="org.liuwy"/>
+    <!-- Root BeanDefinition 不需要合并，不存在parent -->
+    <!-- 普通beanDefinition GenericBeanDefinition -->
+    <!-- 经过合并后 GenericBeanDefinition 变成 RootBeanDefinition -->
     <bean id="user" class="org.liuwy.ioc.overview.domain.User">
         <property name="id" value="1"/>
         <property name="name" value="liuwy"/>
@@ -28,6 +31,8 @@
     <bean id="objectFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
         <property name="targetBeanName" value="user"/>
     </bean>
+    <!-- 普通beanDefinition GenericBeanDefinition -->
+    <!-- primary = true , 增加了一个 address 属性 -->
     <bean id="Admin" class="org.liuwy.ioc.overview.domain.Admin" parent="user" primary="true">
         <property name="address" value="北京"/>
     </bean>
