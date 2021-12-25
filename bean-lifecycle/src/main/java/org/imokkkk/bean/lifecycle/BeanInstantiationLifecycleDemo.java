@@ -6,8 +6,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.util.ObjectUtils;
 
 /**
@@ -21,13 +19,15 @@ public class BeanInstantiationLifecycleDemo {
         // 添加BeanPostProcessor实现
         beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
         XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
-        String location = "META-INF/dependency-lookup-context.xml";
-        Resource resource = new ClassPathResource(location);
-        xmlBeanDefinitionReader.loadBeanDefinitions(resource);
+        String[] locations = {"META-INF/dependency-lookup-context.xml","META-INF/bean-consructor-dependency-injection.xml"};
+        xmlBeanDefinitionReader.loadBeanDefinitions(locations);
         User user = beanFactory.getBean("user", User.class);
         System.out.println("User：" + user);
         User admin = beanFactory.getBean("Admin", User.class);
         System.out.println("Admin：" + admin);
+        // 构造器注入按照类型注入(User.class Admin primary="true")，resolveDependency
+        UserHolder userHolder = beanFactory.getBean("userHolder", UserHolder.class);
+        System.out.println("UserHolder：" + userHolder);
     }
 
     static class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
@@ -40,6 +40,18 @@ public class BeanInstantiationLifecycleDemo {
             }
             // 保持Spring IoC容器实例化操作
             return null;
+        }
+
+        @Override
+        public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
+            if (ObjectUtils.nullSafeEquals("user", beanName) && User.class.equals(bean.getClass())) {
+                // 手动植入
+                User user = (User) bean;
+                user.setName("手动赋值");
+                // user对象不允许属性赋值(配置元信息->属性值)
+                return false;
+            }
+            return true;
         }
     }
 }
