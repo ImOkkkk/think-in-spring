@@ -1,13 +1,20 @@
 package org.imokkkk.bean.lifecycle;
 
 import org.liuwy.ioc.overview.domain.User;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanClassLoaderAware;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 
 /**
  * @author ImOkkkk
  * @date 2021/12/24 22:28
  * @since 1.0
  */
-public class UserHolder {
+public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware {
     private final User user;
 
     private Integer number;
@@ -40,6 +47,35 @@ public class UserHolder {
                 "user=" + user +
                 ", number=" + number +
                 ", description='" + description + '\'' +
+                ", beanName='" + beanName + '\'' +
                 '}';
+    }
+
+    private ClassLoader classLoader;
+
+    private BeanFactory beanFactory;
+
+    private String beanName;
+
+    private Environment environment;
+
+    @Override
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
+    }
+
+    @Override
+    public void setBeanName(String name) {
+        this.beanName = name;
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 }
