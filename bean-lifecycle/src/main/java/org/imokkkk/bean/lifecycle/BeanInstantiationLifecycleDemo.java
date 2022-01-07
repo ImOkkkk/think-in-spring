@@ -38,7 +38,7 @@ public class BeanInstantiationLifecycleDemo {
     private static void executeBeanFactory() {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         // 方法一：添加BeanPostProcessor实现
-        // beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
+         beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
         // 方法二：将MyInstantiationAwareBeanPostProcessor作为Bean注册
         XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
         String[] locations =
