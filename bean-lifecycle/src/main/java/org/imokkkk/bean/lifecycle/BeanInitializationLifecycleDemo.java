@@ -4,6 +4,7 @@ import org.liuwy.ioc.overview.domain.Admin;
 import org.liuwy.ioc.overview.domain.User;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 
 /**
  * Bean初始化生命周期示例
@@ -20,7 +21,10 @@ public class BeanInitializationLifecycleDemo {
     private static void executeBeanFactory() {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
+        // 添加BeanPostProcessor实现MyInstantiationAwareBeanPostProcessor
         beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
+        // 添加CommonAnnotationBeanPostProcessor解决@PostConstruct
+        beanFactory.addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
         String[] locations =
             {"META-INF/dependency-lookup-context.xml", "META-INF/bean-constructor-dependency-injection.xml"};
         int beanNumbers = beanDefinitionReader.loadBeanDefinitions(locations);
