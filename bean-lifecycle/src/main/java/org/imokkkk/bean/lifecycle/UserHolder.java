@@ -9,6 +9,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
@@ -17,7 +18,8 @@ import org.springframework.core.env.Environment;
  * @date 2021/12/24 22:28
  * @since 1.0
  */
-public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware, InitializingBean {
+public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware,
+    InitializingBean, SmartInitializingSingleton {
     private final User user;
 
     private Integer number;
@@ -102,5 +104,11 @@ public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFact
     public void init(){
         this.description = "The user holder V6!";
         System.out.println("init() = "+ description);
+    }
+
+    @Override
+    public void afterSingletonsInstantiated() {
+        this.description = "The user holder V8!";
+        System.out.println("afterSingletonsInstantiated() = " + description);
     }
 }

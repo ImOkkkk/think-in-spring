@@ -20,15 +20,19 @@ public class BeanInitializationLifecycleDemo {
 
     private static void executeBeanFactory() {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
-        XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
         // 添加BeanPostProcessor实现MyInstantiationAwareBeanPostProcessor
         beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
         // 添加CommonAnnotationBeanPostProcessor解决@PostConstruct
         beanFactory.addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
+        XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
         String[] locations =
             {"META-INF/dependency-lookup-context.xml", "META-INF/bean-constructor-dependency-injection.xml"};
         int beanNumbers = beanDefinitionReader.loadBeanDefinitions(locations);
         System.out.println("已加载BeanDefinition数量：" + beanNumbers);
+        // SmartInitializingSingleton通常在ApplicationContext场景下使用
+        // 显式的执行preInstantiateSingletons()方法
+        // preInstantiateSingletons()将已注册的BeanDefinition初始化成Spring Bean
+        beanFactory.preInstantiateSingletons();
 
         User user = beanFactory.getBean("user", User.class);
         System.out.println(user);
