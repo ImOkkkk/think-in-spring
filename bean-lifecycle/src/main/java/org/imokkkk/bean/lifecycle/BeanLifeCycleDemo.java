@@ -13,9 +13,9 @@ public class BeanLifeCycleDemo {
     public static void main(String[] args) {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
-        beanFactory.addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
         // bean销毁前回调
         beanFactory.addBeanPostProcessor(new MyDestructionAwareBeanPostProcessor());
+        beanFactory.addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
         XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
         String[] locations =
             {"META-INF/dependency-lookup-context.xml", "META-INF/bean-constructor-dependency-injection.xml"};

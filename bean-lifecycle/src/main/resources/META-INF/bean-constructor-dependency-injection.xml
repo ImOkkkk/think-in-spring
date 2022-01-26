@@ -6,7 +6,7 @@
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
-    <bean id="userHolder" class="org.imokkkk.bean.lifecycle.UserHolder" autowire="constructor" init-method="init">
+    <bean id="userHolder" class="org.imokkkk.bean.lifecycle.UserHolder" autowire="constructor" init-method="init" destroy-method="doDestroy">
         <!-- 通过XML元素配置 -->
 <!--        <property name="number" value="1"/>-->
         <property name="description" value="The user holder"/>
