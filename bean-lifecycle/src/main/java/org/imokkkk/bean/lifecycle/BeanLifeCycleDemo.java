@@ -10,7 +10,7 @@ import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
  * @since 1.0
  */
 public class BeanLifeCycleDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
         // bean销毁前回调
@@ -27,5 +27,13 @@ public class BeanLifeCycleDemo {
         beanFactory.destroyBean("userHolder", userHolder);
         // bean销毁并不意味着Bean被GC了
         System.out.println(userHolder);
+        // 销毁 BeanFactory中的单例Bean
+        beanFactory.destroySingletons();
+        // 强制GC
+        System.gc();
+        // 等待一段时间
+        Thread.sleep(1000l);
+        // 强制GC
+        System.gc();
     }
 }
